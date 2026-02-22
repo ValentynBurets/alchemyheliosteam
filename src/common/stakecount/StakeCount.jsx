@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import StakeCountWrapper from "./StakeCount.style"; // Import the CSS file
+import StakeCountWrapper from "./StakeCount.style";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import Tooltip from "../tooltip";
+
+import { STAKE_MAX_VALUES, DEFAULT_MAX_BUTTON_VALUE, ERROR_MESSAGES } from "./constants";
 
 const StakeCount = ({
     title,
@@ -16,64 +18,47 @@ const StakeCount = ({
     const [inputValue, setInputValue] = useState(0);
     const [inputType, setInputType] = useState(type);
     const [checkSuccess, setCheckSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     useEffect(() => {
         setCheckSuccess(true);
     }, [checksuccess]);
 
     useEffect(() => {
-        if (checkSuccess) {
-            setInputValue(0);
-        }
+        if (checkSuccess) setInputValue(0);
     }, [checkSuccess]);
+
     useEffect(() => {
         setInputType(type);
     }, [type]);
 
-    const [errorMessage, setErrorMessage] = useState('');
-
     const handleKeyDown = (e) => {
         setCheckSuccess(false);
-        if (e.keyCode === 8 || e.key === "BackSpace") {
-            setInputValue('');
-        }
-        // if (e.key === ".") {
-        //     setErrorMessage('Dot or space is not allowed');
-        //     setInputValue(1);
-        // }
+        if (e.keyCode === 8 || e.key === "BackSpace") setInputValue('');
     };
 
     const handleInputChange = (e) => {
         setCheckSuccess(false);
         const value = e.target.value;
-        if (inputType !== "stakePower") {
-            if (value.includes('.') || value.includes(' ')) {
-                setInputValue("1");
-                setErrorMessage('Dot or space is not allowed');
-                return;
-            } else {
-                setErrorMessage('');
-            }
-        }
-        let maxValue = 0;
-        if (inputType == "stakeLength") {
-            maxValue = 830;
-        } else if (inputType == "stakeAmplifier") {
-            maxValue = 20;
+
+        if (inputType !== "stakePower" && (value.includes('.') || value.includes(' '))) {
+            setInputValue("1");
+            setErrorMessage(ERROR_MESSAGES.invalidDotOrSpace);
+            return;
         } else {
-            maxValue = parseFloat(max);
+            setErrorMessage('');
         }
-        if (e.target.value > maxValue) {
-            setInputValue(max);
-        } else if (e.target.value < min) {
-            setInputValue(min);
-        } else {
-            setInputValue(e.target.value);
-        }
+
+        let maxValue = STAKE_MAX_VALUES[inputType] || parseFloat(max);
+
+        if (value > maxValue) setInputValue(maxValue);
+        else if (value < min) setInputValue(min);
+        else setInputValue(value);
     };
 
     const maxButtonClicked = () => {
         setCheckSuccess(false);
-        setInputValue(250);
+        setInputValue(DEFAULT_MAX_BUTTON_VALUE);
     };
 
     useEffect(() => {
