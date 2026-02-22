@@ -37,9 +37,9 @@ const StakeContentStyleWrapper = styled.div`
       width: 100%;
       display: inline-flex;
       justify-content: center;
-      items-align: center;
     }
     .mine_details {
+      padding: 25px;
       postion: relative;
       width: 49%;
       margin-left: 1%;
@@ -48,6 +48,10 @@ const StakeContentStyleWrapper = styled.div`
       border-radius: 10px;
       font-family: 'Montserrat', sans-serif;
       line-height: 1;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px; 
 
       .mine_details_subtitle {
         color: #f4b940;
@@ -66,7 +70,6 @@ const StakeContentStyleWrapper = styled.div`
       .titanx_details {
         width: 90%;
         margin-left: 5%;
-        margin-bottom: 30px;
         p {
           margin-left: 5%;
         }
@@ -124,7 +127,7 @@ const StakeContentStyleWrapper = styled.div`
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         font-size: 19px;
-        margin: 0;
+        margin: 25px 0 0 0;
         border-bottom: 2px solid rgba(255, 255, 255, 0.1);
       }
       
@@ -194,6 +197,7 @@ const StakeContentStyleWrapper = styled.div`
   
   }
   .miner_cards {
+    padding: 25px;
     position: relative;
     width: 100%;
     margin: 0 auto; /* Add margin auto to center horizontally */

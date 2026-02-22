@@ -1,72 +1,79 @@
 import styled from "styled-components";
 
 const StakeCountWrapper = styled.div`
-margin-bottom: 20px;
+    margin-bottom: 20px;
+
     .error_message {
-        position: relative;
-        display: inline-flex;
         width: 100%;
-        justify-content: center;
-        align-items: center;
-        p{
-            position: relative;
-            width: 100%;
-            float: right;
-            font-size: 12px;
-            color: red;
-            margin: 0 0 0 calc(15px + 70%);
-        }
+        text-align: right;
+        font-size: 12px;
+        color: red;
+        margin-top: 5px;
     }
+
     .miner-container {
-        position: relative;
-        display: inline-flex;
-        width: 100%;
-        justify-content: center;
+        display: flex;
         align-items: center;
+        gap: 10px;
+        width: 100%;
+
         .tooltip_header_text {
-            padding-left: 15px;
-            width: 70%;
-            font-size: 19px;
+            flex: 1.5;
             display: flex;
-            text-align: center;
             align-items: center;
-            h3{
+            font-size: 16px;
+            h3 {
                 margin-right: 5px;
             }
-            .tooltip{
-                justify-content: center;
+            .tooltip {
+                display: flex;
                 align-items: center;
-                text-align:center;
             }
-        }
-        .max_button {
-            width: 60px;
-            padding-top: 9px;
-            padding-bottom: 9px;
-            background-color: #BA3505;
-            border: 1px solid #FE9C01;
-            border-radius: 30px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
         }
 
         .count_input {
-            width: 17%;
-            margin-right: 1%;
-            height: 15px;
-            padding: 10px;
+            width: 80px;
+            height: 40px;
+            padding: 0 10px;
             border: 2px solid #fff;
-            border-radius: 5px;
-            outline: none;
+            border-radius: 20px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            outline: none;
+            background-color: #2c1b0a;
+            color: #fff;
+            text-align: center;
+
+            &:focus {
+                border-color: #FE9C01;
+                box-shadow: 0 0 4px #FE9C01;
+            }
         }
 
-        .count_input:focus {
-            border-color: #000;
-        }
+        .max_button {
+            height: 40px;
+            padding: 0 15px;
+            background-color: #FE9C01;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #2c1b0a;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
 
+            &:hover {
+                background-color: #ffb74d;
+                transform: scale(1.05);
+            }
+
+            &:active {
+                transform: scale(0.98);
+            }
+
+            &:disabled {
+                background-color: #a56b3c;
+                cursor: not-allowed;
+            }
+        }
     }
 `;
 
