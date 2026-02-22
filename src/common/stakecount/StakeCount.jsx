@@ -71,9 +71,9 @@ const StakeCount = ({
         }
     };
 
-    const maxButtonClicked = (max) => {
+    const maxButtonClicked = () => {
         setCheckSuccess(false);
-        setInputValue(max);
+        setInputValue(250);
     };
 
     useEffect(() => {
@@ -100,7 +100,7 @@ const StakeCount = ({
                     onKeyDown={handleKeyDown}
                 />
                 {active == 1 && (
-                    <button className="max_button" onClick={() => maxButtonClicked(max)}>
+                    <button className="max_button" onClick={maxButtonClicked}>
                         MAX
                     </button>
                 )}
