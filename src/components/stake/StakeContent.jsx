@@ -163,11 +163,11 @@ const StakeContent = () => {
             },
         });
 
-    const aproveAndWrite = async () => {
+    const approveAndWrite = async () => {
         if (allowance > titanToBurn) {
-            stakeWrite({ from: address });
+            await stakeWrite({ from: address });
         } else {
-            approveWrite({ from: address });
+            await approveWrite({ from: address });
         }
     };
 
@@ -349,6 +349,24 @@ const StakeContent = () => {
         }
         setCheckSuccess(false);
     };
+
+    const handleStakeButtonClick = async () => {
+        if (!isConnected) {
+          toast.info("Please connect your wallet first.");
+          return;
+        }
+      
+        try {
+          if (stakeAmplifier && stakeAmplifier > 0) {
+            await approveAndWrite();
+          } else {
+            await stakeWrite({ from: address });
+          }
+        } catch (error) {
+          toast.error(error.message || "Transaction failed.");
+        }
+      };
+
     return (
         <StakeContentStyleWrapper>
             <div className="mine_container">
@@ -417,14 +435,8 @@ const StakeContent = () => {
 
                                         <div className="create_miner_btn">
                                             <button
-                                                disabled={
-                                                    !(isConnected && !(stakeLoading || approveLoading || isConfirmed))
-                                                }
-                                                onClick={() => {
-                                                    stakeAmplifier && stakeAmplifier > 0
-                                                        ? aproveAndWrite()
-                                                        : stakeWrite({ from: address });
-                                                }}
+                                                disabled={!isConnected || stakeLoading || approveLoading || isConfirmed}
+                                                onClick={handleStakeButtonClick}
                                             >
                                                 {isConnected ? "Start Stake" : "Connect To Start Stake"}
                                             </button>
